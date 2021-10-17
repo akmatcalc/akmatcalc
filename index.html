@@ -75,7 +75,7 @@
 		var tmp3 = "";
 		$.get({
 			// URL to get all farmable materials
-            url:"http://prts.wiki/api.php?action=parse&format=json&prop=text&formatversion=2&page=%E9%81%93%E5%85%B7%E4%B8%80%E8%A7%88",
+            url:"https://prts.wiki/api.php?action=parse&format=json&prop=text&formatversion=2&page=%E9%81%93%E5%85%B7%E4%B8%80%E8%A7%88",
 			dataType: "jsonp",
             success: function (response) {
 				tmp1 = response.parse.text.replaceAll("<div ", "").replaceAll("</div>", "\n");

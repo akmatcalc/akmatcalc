@@ -278,7 +278,7 @@
 				<!-- console.log("CCCC " + opDetails[3] + " CCCC " + regex.test(opDetails[3])); -->
 			}
 			
-			fetchJsonp('http://prts.wiki/api.php?action=query&format=json&list=allimages&formatversion=2&ailimit=4&aifrom=%E5%A4%B4%E5%83%8F_'+encodeURI(opDetails[0]), {timeout: 100000})
+			fetchJsonp('https://prts.wiki/api.php?action=query&format=json&list=allimages&formatversion=2&ailimit=4&aifrom=%E5%A4%B4%E5%83%8F_'+encodeURI(opDetails[0]), {timeout: 100000})
 				.then(res => res.json())
 				.then(function(json) {
 					imagelink = json.query.allimages[0]['url'];
@@ -306,7 +306,7 @@
 		// Material Details
 		$.get({
 			// URL to mats crafted or craftable with this
-            url:"http://prts.wiki/api.php?action=parse&format=json&prop=text&formatversion=2&page="+queryString,
+            url:"https://prts.wiki/api.php?action=parse&format=json&prop=text&formatversion=2&page="+queryString,
 			dataType: "jsonp",
             success: function (response) {
 				
@@ -322,10 +322,10 @@
 				// check image link and validate
 				if(titleImg.indexOf('data-src="')>0){
 					titleImg = titleImg.replaceAll(' src="', 'class="center" fake-src="/');
-					titleImg = titleImg.replaceAll(' data-src="', ' src="http://prts.wiki/');
+					titleImg = titleImg.replaceAll(' data-src="', ' src="https://prts.wiki/');
 				}
 				else{
-					titleImg = titleImg.replaceAll(' src="', 'class="center" src="http://prts.wiki/');
+					titleImg = titleImg.replaceAll(' src="', 'class="center" src="https://prts.wiki/');
 				}
 				
 				document.getElementById('page_title_img').innerHTML = "<pre>"+titleImg+"</pre>";
@@ -343,10 +343,10 @@
 					// check image link and validate
 					if(crafto.indexOf('data-src="')>0){
 						crafto = crafto.replaceAll(' src="', ' fake-src="/');
-						crafto = crafto.replaceAll(' data-src="', ' src="http://prts.wiki/');
+						crafto = crafto.replaceAll(' data-src="', ' src="https://prts.wiki/');
 					}
 					else{
-						crafto = crafto.replaceAll(' src="', 'class="center" src="http://prts.wiki/');
+						crafto = crafto.replaceAll(' src="', 'class="center" src="https://prts.wiki/');
 					}
 					
 					crafto = crafto.replaceAll('width="35" height="35"', 'width="60" height="60"');
@@ -373,10 +373,10 @@
 				<!-- craftfrom = craftfrom.replaceAll('<a href="/w/','<a href="matlist.html?'); -->
 				if(craftfrom.indexOf('data-src="')>0){
 					craftfrom = craftfrom.replaceAll(' src="', ' fake-src="/');
-					craftfrom = craftfrom.replaceAll(' data-src="', ' src="http://prts.wiki/');
+					craftfrom = craftfrom.replaceAll(' data-src="', ' src="https://prts.wiki/');
 				}
 				else{
-					craftfrom = craftfrom.replaceAll(' src="', 'class="center" src="http://prts.wiki/');
+					craftfrom = craftfrom.replaceAll(' src="', 'class="center" src="https://prts.wiki/');
 				}
 				
 				craftfrom = craftfrom.replaceAll('/thumb', '');
@@ -402,7 +402,7 @@
 		// Characters List
 		$.get({
 			// URL to get all characters farmable with said materials
-            url:"http://prts.wiki/api.php?action=parse&format=json&prop=wikitext&formatversion=2&page="+queryString,
+            url:"https://prts.wiki/api.php?action=parse&format=json&prop=wikitext&formatversion=2&page="+queryString,
 			dataType: "jsonp",
             success: function (response) {
 				tmp = response.parse.wikitext;
