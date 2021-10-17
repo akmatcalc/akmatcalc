@@ -1,0 +1,127 @@
+<html>
+	<head>
+		<script src="misc/jquery-min.js"></script>
+		
+		
+		<meta charset="utf-8" />
+		<meta name="viewport"
+			  content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Simpler PRTS Materials</title>
+		
+		<!-- CSS for loading bar -->
+		<style>
+			#loader {
+				border: 12px solid #f3f3f3;
+				border-radius: 50%;
+				border-top: 12px solid #444444;
+				width: 70px;
+				height: 70px;
+				animation: spin 1s linear infinite;
+			}
+			  
+			@keyframes spin {
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+			  
+			.center {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+			}
+			
+			p {
+				font-family:Calibri;
+				text-align: center;
+			}
+		</style>
+		
+		
+	</head>
+	<body style="background-color:#e0e0e0;">
+		<h1 style="font-family:Calibri;text-align:center;">Select a material below</h1>
+		<p align="center" id="output" ></p>
+	
+	
+		<!-- Loading bar until page finishes loading -->
+		<div id="loader" class="center"></div>
+		<script>
+			document.onreadystatechange = function() {
+				if (document.readyState !== "complete") {
+					document.querySelector(
+					  "body").style.visibility = "hidden";
+					document.querySelector(
+					  "#loader").style.visibility = "visible";
+				} else {
+					document.querySelector(
+					  "#loader").style.display = "none";
+					document.querySelector(
+					  "body").style.visibility = "visible";
+				}
+			};
+		</script>
+	
+	
+	
+		<!-- The real script function -->
+		<script>
+		var tmp1;
+		var tmp2;
+		var tmp3 = "";
+		$.get({
+			// URL to get all farmable materials
+            url:"http://prts.wiki/api.php?action=parse&format=json&prop=text&formatversion=2&page=%E9%81%93%E5%85%B7%E4%B8%80%E8%A7%88",
+			dataType: "jsonp",
+            success: function (response) {
+				tmp1 = response.parse.text.replaceAll("<div ", "").replaceAll("</div>", "\n");
+
+				var arr_split = tmp1.split("\n");
+				var mat_start = arr_split.findIndex(element => element.includes('data-id="100001')); //data material starts from 100001, ends on 10000XX
+				var mat_end;
+				
+				//check for last material array
+				for (tmp2 = 40; tmp2 < 100; tmp2++) {
+					var check = tmp1.indexOf('data-id="1000'+tmp2+'"');
+					if(check<0){
+						mat_end = mat_start+tmp2-2;
+						break;
+					}
+				}
+				
+				// list all mats and show only name and picture
+				for (counter = mat_start; counter <= mat_end; counter++){
+					arr_tmp = arr_split[counter].split('" ');
+					name = arr_tmp[1].split('"')[1];
+					image = arr_tmp[6].split('"')[1];
+					
+					tmp3+='<a href="misc/matlist.html?'+name+'"><img src=http://'+image+'></a>'
+					
+					if((counter-mat_start+1)%8==0) tmp3+='<br>';
+					
+				}
+				// print output to HTML
+				document.getElementById('output').innerHTML = tmp3;
+				
+				<!-- console.log(tmp1.indexOf('data-id="1000.."')); -->
+                <!-- alert( "Load was performed." ); -->
+            },
+            error: function (xhr, status) {
+                alert("error, please reload");
+            }
+        });
+
+
+
+		</script>
+		
+		<div>
+		  <p >Data Obtained from ak.mooncell.wiki</p>
+		</div>
+		
+	</body>
+</html>
