@@ -1,0 +1,13 @@
+<script>var url = "https://api.prts.wiki/widget/itemDemand/%E7%A0%94%E7%A3%A8%E7%9F%B3";
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", url);
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+   }};
+
+xhr.send();
+</script>

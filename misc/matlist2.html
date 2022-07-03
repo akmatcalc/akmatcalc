@@ -93,6 +93,7 @@
 		</style>
 	</head>
 	<body style="background-color:#e0e0e0;">
+	
 		<div class="header">
 			<a href="../index.html" style="font-family:Calibri;margin:15px;display:block;"><< Return to Main Page</a>
 		</div>
@@ -117,27 +118,27 @@
 
 		<!-- Tab settings -->
 		<div class="tab" id="hidden_tab" hidden>
-		  <button class="tablinks" onclick="openRarity(event, 'rarity_0')" id="defaultOpen">6*</button>
-		  <button class="tablinks" onclick="openRarity(event, 'rarity_1')">5*</button>
-		  <button class="tablinks" onclick="openRarity(event, 'rarity_2')">4*</button>
-		  <button class="tablinks" onclick="openRarity(event, 'rarity_3')" id="mayNotExist" hidden>3*</button>
+		  <button class="tablinks" onclick="openRarity(event, 'rarity_5')" id="defaultOpen">6*</button>
+		  <button class="tablinks" onclick="openRarity(event, 'rarity_4')">5*</button>
+		  <button class="tablinks" onclick="openRarity(event, 'rarity_3')">4*</button>
+		  <button class="tablinks" onclick="openRarity(event, 'rarity_2')" id="mayNotExist" hidden>3*</button>
 		</div>
 
 		<!-- Tab content -->
 		<div id="here_table" hidden>
-			<div id="rarity_0" class="tabcontent">
+			<div id="rarity_5" class="tabcontent">
 				<br><br><br>
 			</div>
 
-			<div id="rarity_1" class="tabcontent">
+			<div id="rarity_4" class="tabcontent">
 				<br><br><br>
 			</div>
 
-			<div id="rarity_2" class="tabcontent">
+			<div id="rarity_3" class="tabcontent">
 				<br><br><br>
 			</div>
 			
-			<div id="rarity_3" class="tabcontent">
+			<div id="rarity_2" class="tabcontent">
 				<br><br><br>
 			</div>
 		</div>
@@ -161,6 +162,13 @@
 		var tmp2;
 		var tmp3;
 		var tmp4;
+		
+		
+		window.addEventListener("message", (e) => {
+			var dataaaa= e.data; // hare are data sent by other window postMessage method
+			alert(dataaaa)
+		});
+		
 		
 		// Checkbox Function (Jquery is AMEJIIING)
 		function checkMatNumber() {
@@ -226,43 +234,46 @@
 			var promotion1, promotion2, promotionCb = '';
 			var skill1, skill2, skillCb = '';
 			var mastery1, mastery2, masteryCb = '';
+			var module1, module2, moduleCb = '';
+	
 			
 			// check if value is zero or not
-			if(opDetails[1]>0){
+			if(opDetails["elite"]>0){
 				<!-- promotion = 'Promotion: <exist>' + opDetails[1] + '</exist>'; -->
 				promotion1 = 'Promotion:';
-				promotion2 = '<exist>' + opDetails[1] + '</exist>';
-				<!-- promotionCb = '<td><input type="checkbox" value="' + opDetails[1] + '" onclick="checkMatNumber()"></td>' -->
-				promotionCb = '<input type="checkbox" value="' + opDetails[1] + '" onclick="checkMatNumber()">'
+				promotion2 = '<exist>' + opDetails["elite"] + '</exist>';
+				<!-- promotionCb = '<td><input type="checkbox" value="' + opDetails["elite"] + '" onclick="checkMatNumber()"></td>' -->
+				promotionCb = '<input type="checkbox" value="' + opDetails["elite"] + '" onclick="checkMatNumber()">'
 			} else {
 				<!-- promotion = '<notexist>Promotion: ' + opDetails[1] + '</notexist>'; -->
 				promotion1 = '<notexist>Promotion:</notexist>';
-				promotion2 = '<notexist>' + opDetails[1] + '</notexist>';
-				<!-- console.log("AAAA " + opDetails[1] + " AAAA "); -->
+				promotion2 = '<notexist>' + opDetails["elite"] + '</notexist>';
+				<!-- console.log("AAAA " + opDetails["elite"] + " AAAA "); -->
 			}
 			
-			if(opDetails[2]>0){
-				<!-- skill = 'Skill 1 → 7: <exist>' + opDetails[2] + '</exist>'; -->
+			if(opDetails["skill"]>0){
+				<!-- skill = 'Skill 1 → 7: <exist>' + opDetails["skill"] + '</exist>'; -->
 				skill1 = 'Skill 1 → 7:';
-				skill2 = '<exist>' + opDetails[2] + '</exist>';
-				<!-- skillCb = '<td><input type="checkbox" value="' + opDetails[2] + '" onclick="checkMatNumber()"></td>' -->
-				skillCb = '<input type="checkbox" value="' + opDetails[2] + '" onclick="checkMatNumber()">'
+				skill2 = '<exist>' + opDetails["skill"] + '</exist>';
+				<!-- skillCb = '<td><input type="checkbox" value="' + opDetails["skill"] + '" onclick="checkMatNumber()"></td>' -->
+				skillCb = '<input type="checkbox" value="' + opDetails["skill"] + '" onclick="checkMatNumber()">'
 			} else {
-				<!-- skill = '<notexist>Skill 1 → 7: ' + opDetails[2] + '</notexist>'; -->
+				<!-- skill = '<notexist>Skill 1 → 7: ' + opDetails["skill"] + '</notexist>'; -->
 				skill1 = '<notexist>Skill 1 → 7:</notexist>';
-				skill2 = '<notexist>' + opDetails[2] + '</notexist>';
-				<!-- console.log("BBBB " + opDetails[2] + " BBBB "); -->
+				skill2 = '<notexist>' + opDetails["skill"] + '</notexist>';
+				<!-- console.log("BBBB " + opDetails["skill"] + " BBBB "); -->
 			}
 			
 			//check if the sum of mats needed to mastery any skill is 0 or not
-			checker3 = parseInt(opDetails[3].match(/\d+/g).reduce((a, b) => a + b, 0));
+			checker3 = opDetails["mastery"].reduce((a, b) => a + b, 0);
 			<!-- console.log(parseInt(opDetails[3].match(/\d+/g).reduce((a, b) => a + b, 0))); -->
 			if(checker3 > 0){
 				<!-- mastery = 'Skill Mastery: <exist>' + opDetails[3] + '</exist>'; -->
 				mastery1 = 'Skill Mastery:';
 				
+				
 				// Split per slash and add checkbox beside it
-				opDetailsMastery = opDetails[3].split('/');
+				opDetailsMastery = opDetails["mastery"];
 				<!-- console.log(opDetailsMastery); -->
 				
 				<!-- mastery2 = '<exist>' + opDetails[3] + '</exist>'; -->
@@ -275,19 +286,30 @@
 			} else {
 				<!-- mastery = '<notexist>Skill Mastery: ' + opDetails[3] + '</notexist>'; -->
 				mastery1 = '<notexist>Skill Mastery:</notexist>';
-				mastery2 = '<notexist>' + opDetails[3] + '</notexist>';
+				mastery2 = '<notexist>0</notexist>';
 				<!-- console.log("CCCC " + opDetails[3] + " CCCC " + regex.test(opDetails[3])); -->
 			}
 			
+			// Materials needed to unlock module
+			if(opDetails["uniequip"]>0){
+				module1 = 'Module:';
+				module2 = '<exist>' + opDetails["uniequip"] + '</exist>';
+				moduleCb = '<input type="checkbox" value="' + opDetails["uniequip"] + '" onclick="checkMatNumber()">'
+			} else {
+				<!-- skill = '<notexist>Skill 1 → 7: ' + opDetails["skill"] + '</notexist>'; -->
+				module1 = '<notexist>Module:</notexist>';
+				module2 = '<notexist>' + opDetails["uniequip"] + '</notexist>';
+			}
 			
-			fetchJsonp('https://prts.wiki/api.php?action=query&format=json&list=allimages&formatversion=2&ailimit=4&aifrom=%E5%A4%B4%E5%83%8F_'+encodeURI(opDetails[0]), {timeout: 100000})
+			fetchJsonp('https://prts.wiki/api.php?action=query&format=json&list=allimages&formatversion=2&ailimit=4&aifrom=%E5%A4%B4%E5%83%8F_'+encodeURI(opDetails["name"]), {timeout: 100000})
 				.then(res => res.json())
 				.then(function(json) {
 					imagelink = json.query.allimages[0]['url'];
 					
 					<!-- // trying to separate amiya and guardmiya art -->
-					if(imagelink.indexOf("%28%E8%BF%91%E5%8D%AB%29")>0 && encodeURI(opDetails[0]).indexOf("(%E8%BF%91%E5%8D%AB)")<0){
+					if(imagelink.indexOf("%28%E8%BF%91%E5%8D%AB%29")>0 && encodeURI(opDetails["name"]).indexOf("(%E8%BF%91%E5%8D%AB)")<0){
 						imagelink = json.query.allimages[2]['url'];
+						
 					}
 					
 					// Version 1 Listing
@@ -296,10 +318,11 @@
 					$('#rarity_'+rarity).append('<table style="width:500px; border:2px black; border-style:groove;">' +
 						<!-- '<tr><td rowspan="3" width=200px><img class="center" src='+imagelink+' width="100" height="100"></td><td value="1">' + promotion1 + '</td><td>' + promotion2 + '</td>' + promotionCb + '</tr>' + -->
 						
-						'<tr><td rowspan="3" width=200px><img class="center" src='+imagelink+' width="100" height="100"></td><td value="1" width=100px>' + promotion1 + '</td><td>' + promotion2 + promotionCb + '</td></tr>' +
+						'<tr><td rowspan="4" width=200px><img class="center" src='+imagelink+' width="100" height="100"></td><td value="1" width=100px>' + promotion1 + '</td><td>' + promotion2 + promotionCb + '</td></tr>' +
 						<!-- '<tr><td>' + skill1 + '</td><td>' + skill2 + '</td>' + skillCb + '</tr>' + -->
 						'<tr><td>' + skill1 + '</td><td>' + skill2 + skillCb + '</td></tr>' +
 						'<tr><td>' + mastery1 + '</td><td>' + mastery2 + '</td>' + masteryCb + '</tr>' +
+						'<tr><td>' + module1 + '</td><td>' + module2 + moduleCb + '</td></tr>' +
 					'</table>');
 					$('#rarity_'+rarity).append('<br>');
 				});
@@ -340,7 +363,7 @@
 					crafto = tmp[1].split("\n")[3];
 					
 					// replace html script so it calls prts.wiki
-					crafto = crafto.replaceAll('<a href="/w/','<a href="matlist.html?');
+					crafto = crafto.replaceAll('<a href="/w/','<a href="matlist2.html?');
 					
 					// check image link and validate
 					if(crafto.indexOf('data-src="')>0){
@@ -367,12 +390,12 @@
 				craftfrom = craftfrom.replace('<span style=','<span id="spanMatCalc3" style=');
 				// add Radio Button for selection
 				// replace html script so it calls prts.wiki
-				craftfrom = craftfrom.replace('<a href="/w/','<input type="radio" name="farmMat" onclick=radioButtonCheck() value="tmp1tmp"><br><a href="matlist.html?');
-				craftfrom = craftfrom.replace('<a href="/w/','<input type="radio" name="farmMat" onclick=radioButtonCheck() value="tmp2tmp"><br><a href="matlist.html?');
-				craftfrom = craftfrom.replace('<a href="/w/','<input type="radio" name="farmMat" onclick=radioButtonCheck() value="tmp3tmp"><br><a href="matlist.html?');
+				craftfrom = craftfrom.replace('<a href="/w/','<input type="radio" name="farmMat" onclick=radioButtonCheck() value="tmp1tmp"><br><a href="matlist2.html?');
+				craftfrom = craftfrom.replace('<a href="/w/','<input type="radio" name="farmMat" onclick=radioButtonCheck() value="tmp2tmp"><br><a href="matlist2.html?');
+				craftfrom = craftfrom.replace('<a href="/w/','<input type="radio" name="farmMat" onclick=radioButtonCheck() value="tmp3tmp"><br><a href="matlist2.html?');
 				
 				// check image link and validate
-				<!-- craftfrom = craftfrom.replaceAll('<a href="/w/','<a href="matlist.html?'); -->
+				<!-- craftfrom = craftfrom.replaceAll('<a href="/w/','<a href="matlist2.html?'); -->
 				if(craftfrom.indexOf('data-src="')>0){
 					craftfrom = craftfrom.replaceAll(' src="', ' fake-src="/');
 					craftfrom = craftfrom.replaceAll(' data-src="', ' src="https://prts.wiki/');
@@ -405,46 +428,43 @@
 		// What prts.wiki changed in their API that made v1 of this program crashes
 		$.get({
 			// URL to get all characters farmable with said materials
-            url:"https://api.prts.wiki/widget/itemDemand/"+queryString,
-			dataType: "jsonp",
+			// Uses CORS Proxy
+			// https://allorigins.win/
+            url:"http://api.allorigins.win/get?url=https://api.prts.wiki/widget/itemDemand/"+queryString,
             success: function (response) {
-				tmp = response.parse.wikitext;
-				console.log("AAAAA: " + tmp);
+				tmp = response.contents;
+				new_arr = Object.entries(JSON.parse(tmp));
 				
-				tmp1 = tmp.split("'''");
+				// Get detail of each operators (debug purposes)
+				// https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/
+				/*console.log("AAAAA: " +  JSON.stringify(Object.entries(JSON.parse(tmp))[7]));
+				console.log("AAAAA: " +  JSON.stringify(Object.entries(JSON.parse(tmp))[7][1]));
+				console.log("AAAAA: " +  Object.entries(JSON.parse(tmp))[7][1]["name"]);
+				console.log("AAAAA: " +  Object.entries(JSON.parse(tmp))[7][1]["rarity"]);
+				console.log("AAAAA: " +  Object.entries(JSON.parse(tmp))[7][1]["elite"]);
+				console.log("AAAAA: " +  Object.entries(JSON.parse(tmp))[7][1]["mastery"]);
+				console.log("AAAAA: " +  Object.entries(JSON.parse(tmp))[7][1]["skill"]);
+				console.log("AAAAA: " +  Object.entries(JSON.parse(tmp))[7][1]["uniequip"]);
+				*/
+				
+				
+				
 				// print document title in chinese
-				document.title = tmp1[0].split("\n")[3].split("=")[1];
+				document.title = decodeURI(queryString);
 				document.getElementById('page_title').innerHTML = document.title;
 				
 				// print output to HTML
-				if(tmp.indexOf("'''")<0){
+				if(new_arr.length<1){
 					<!-- document.getElementById('output').innerHTML = "Nobody needs this material. Maybe needed to craft its T4 or T5 material?"; -->
 				}
 				else{
-					tmp2 = tmp1[2].split("==")[0];
-					tmp3 = tmp2.split("}}\n|-|\n");
-					
-					<!-- document.getElementById('output').innerHTML = "<pre>"+tmp1+"</pre>"; -->
-					
-					if(tmp3.length>3) document.getElementById('mayNotExist').style.display = "block";
-					
-					// loop until load all rarities (bisa dari 6* sampe 3* atau 4*)
-					for(rarity=0; rarity<tmp3.length; rarity++){
-						//split per rarity into each lines
-						tmp4 = tmp3[rarity].split("\n|");
-						// view each chara one by one and show image and numbers needed
-						for(var j=2; j<tmp4.length; j++){
-							// show image here
-							var opDetails = tmp4[j].split('|');
-							var name = opDetails[0];
-							
-							// remove last bit of trash chara
-							var regex2 = /\n/g;
-							if(j == tmp4.length-1 && regex2.test(opDetails[3]))
-								opDetails[3] = opDetails[3].split('\n')[0];
-							
-							getOpDetails(opDetails, rarity);
-						}
+					// New Code
+					for(var i=0; i<new_arr.length; i++){
+						// show image here
+						var opDetails = new_arr;
+						var name = opDetails["name"];
+
+						getOpDetails(opDetails[i][1], opDetails[i][1]["rarity"]);
 					}
 					
 					<!-- alert( "Load was performed." ); -->
@@ -456,7 +476,9 @@
                 alert("error, please reload");
             }
         });
+
 		</script>
+		
 		
 		
 		<!-- Footer -->
