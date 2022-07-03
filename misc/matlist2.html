@@ -305,7 +305,7 @@
 				});
 		}
 		
-		// Material Details (Check what materials can be crafted with or from this one)
+		// Material Details
 		$.get({
 			// URL to mats crafted or craftable with this
             url:"https://prts.wiki/api.php?action=parse&format=json&prop=text&formatversion=2&page="+queryString,
@@ -400,15 +400,16 @@
         });
 		
 		
-		
+		<!-- console.log(queryString); -->
 		// Characters List
+		// What prts.wiki changed in their API that made v1 of this program crashes
 		$.get({
 			// URL to get all characters farmable with said materials
-            url:"https://prts.wiki/api.php?action=parse&format=json&prop=wikitext&formatversion=2&page="+queryString,
+            url:"https://api.prts.wiki/widget/itemDemand/"+queryString,
 			dataType: "jsonp",
             success: function (response) {
 				tmp = response.parse.wikitext;
-				<!-- console.log(tmp); -->
+				console.log("AAAAA: " + tmp);
 				
 				tmp1 = tmp.split("'''");
 				// print document title in chinese
