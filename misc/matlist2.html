@@ -164,12 +164,6 @@
 		var tmp4;
 		
 		
-		window.addEventListener("message", (e) => {
-			var dataaaa= e.data; // hare are data sent by other window postMessage method
-			alert(dataaaa)
-		});
-		
-		
 		// Checkbox Function (Jquery is AMEJIIING)
 		function checkMatNumber() {
 			<!-- https://stackoverflow.com/questions/4086957/jquery-see-if-any-or-no-checkboxes-are-selected -->
@@ -309,7 +303,6 @@
 					<!-- // trying to separate amiya and guardmiya art -->
 					if(imagelink.indexOf("%28%E8%BF%91%E5%8D%AB%29")>0 && encodeURI(opDetails["name"]).indexOf("(%E8%BF%91%E5%8D%AB)")<0){
 						imagelink = json.query.allimages[2]['url'];
-						
 					}
 					
 					// Version 1 Listing
