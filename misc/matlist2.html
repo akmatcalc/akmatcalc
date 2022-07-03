@@ -430,7 +430,7 @@
 			// URL to get all characters farmable with said materials
 			// Uses CORS Proxy
 			// https://allorigins.win/
-            url:"http://api.allorigins.win/get?url=https://api.prts.wiki/widget/itemDemand/"+queryString,
+            url:"https://api.allorigins.win/get?url=https://api.prts.wiki/widget/itemDemand/"+queryString,
             success: function (response) {
 				tmp = response.contents;
 				new_arr = Object.entries(JSON.parse(tmp));
